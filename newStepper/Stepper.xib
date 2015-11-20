@@ -12,6 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Stepper" customModule="newStepper" customModuleProvider="target">
             <connections>
+                <outlet property="arrowDown" destination="dip-lG-du7" id="h7y-fB-Kcq"/>
+                <outlet property="arrowUp" destination="fhL-Fw-MAT" id="fFp-zT-nI3"/>
+                <outlet property="circleView" destination="IES-9o-Cgt" id="1nL-fJ-dKV"/>
                 <outlet property="label" destination="sQs-m7-k9N" id="DPK-9X-bHn"/>
                 <outlet property="labelYConstraint" destination="TBP-tW-Wrt" id="jla-xQ-gaa"/>
                 <outlet property="view" destination="iN0-l3-epB" id="545-Df-rbb"/>
@@ -32,8 +35,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQs-m7-k9N" userLabel="value">
-                    <rect key="frame" x="148" y="109" width="14" height="40"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQs-m7-k9N" userLabel="value">
+                    <rect key="frame" x="146" y="109" width="19" height="40"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="FuturistFixedWidth-Regular" family="Futurist Fixed-width" pointSize="34"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -19,8 +19,6 @@
 		CFFD0E681BFE609900693486 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD0E661BFE609900693486 /* Utils.swift */; };
 		CFFD0E6A1BFE634700693486 /* Stepper.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFFD0E691BFE634700693486 /* Stepper.xib */; };
 		CFFD0E6B1BFE634700693486 /* Stepper.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFFD0E691BFE634700693486 /* Stepper.xib */; };
-		CFFD0E6D1BFE636C00693486 /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFFD0E6C1BFE636C00693486 /* assets.xcassets */; };
-		CFFD0E6E1BFE636C00693486 /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFFD0E6C1BFE636C00693486 /* assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +45,6 @@
 		CFFD0E631BFE607800693486 /* Stepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stepper.swift; sourceTree = "<group>"; };
 		CFFD0E661BFE609900693486 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		CFFD0E691BFE634700693486 /* Stepper.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Stepper.xib; sourceTree = "<group>"; };
-		CFFD0E6C1BFE636C00693486 /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +90,6 @@
 				8FC342BC1B28EE6200F59A0B /* ViewController.swift */,
 				8FC342BE1B28EE6200F59A0B /* Main.storyboard */,
 				8FC342C11B28EE6200F59A0B /* Images.xcassets */,
-				CFFD0E6C1BFE636C00693486 /* assets.xcassets */,
 				8FC342C31B28EE6200F59A0B /* LaunchScreen.xib */,
 				8FC342B81B28EE6200F59A0B /* Supporting Files */,
 				CFFD0E631BFE607800693486 /* Stepper.swift */,
@@ -213,7 +209,6 @@
 				8FC342C01B28EE6200F59A0B /* Main.storyboard in Resources */,
 				8FC342C51B28EE6200F59A0B /* LaunchScreen.xib in Resources */,
 				8FC342C21B28EE6200F59A0B /* Images.xcassets in Resources */,
-				CFFD0E6D1BFE636C00693486 /* assets.xcassets in Resources */,
 				CFFD0E6A1BFE634700693486 /* Stepper.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,7 +217,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFFD0E6E1BFE636C00693486 /* assets.xcassets in Resources */,
 				CFFD0E6B1BFE634700693486 /* Stepper.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -73,7 +73,7 @@
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KB4-nZ-eN3" customClass="Stepper" customModule="newStepper" customModuleProvider="target">
-                                <rect key="frame" x="137" y="537" width="100" height="100"/>
+                                <rect key="frame" x="138" y="537" width="100" height="100"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -111,9 +111,14 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="FXw-32-ylV">
+                    <connections>
+                        <action selector="setupOutsideTapGesture:" destination="BYZ-38-t0r" id="bA2-fO-q5y"/>
+                    </connections>
+                </tapGestureRecognizer>
                 <tapGestureRecognizer id="GVr-5s-5XM">
                     <connections>
-                        <action selector="setupOutsideTapGesture:" destination="BYZ-38-t0r" id="BfE-fN-eaW"/>
+                        <action selector="setupOutsideTapGesture:" destination="KB4-nZ-eN3" id="yyW-ho-LKe"/>
                     </connections>
                 </tapGestureRecognizer>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="NW9-LV-6H5">

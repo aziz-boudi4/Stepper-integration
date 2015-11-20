@@ -71,16 +71,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     label.font = UIFont(name:"Futura-Medium", size: 44.0)
-    arrowDown.alpha = 1
-    arrowUp.alpha = 1
-    label.alpha = 0
+    arrowDown.alpha = 1 // A
+    arrowUp.alpha = 1 // A
+    label.alpha = 0   // A
     panGesture.enabled = false
     setupSwipeGestures()
     setupTapGesture()
-    firstTap = true
+    firstTap = true  // A
 
-    circleView.layer.cornerRadius = CGRectGetHeight(circleView.bounds) / 2.0
-    circleView.layer.borderColor = UIColor.lightGrayColor().CGColor
+    circleView.layer.cornerRadius = CGRectGetHeight(circleView.bounds) / 2.0  // NoN
+    circleView.layer.borderColor = UIColor.lightGrayColor().CGColor   // NoN
   }
 
   private func setupSwipeGestures() {
@@ -151,7 +151,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
   }
 
 
-  func enlarge() {
+  func enlarge() { // added
     circleView.transform = CGAffineTransformMakeScale(1.2, 1.2)
     buttonDownConstraint.constant = 4
     buttonUpConstraint.constant = 4
@@ -161,7 +161,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     panGesture.enabled = true
   }
 
-  func shrink() {
+  func shrink() {  // added
     circleView.layer.backgroundColor = UIColor(red: 211/255.0, green: 211/255.0, blue: 211/255.0, alpha: 0.3).CGColor
     circleView.transform = CGAffineTransformMakeScale(1, 1)
     arrowUp.alpha = 0

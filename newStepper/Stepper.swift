@@ -8,9 +8,21 @@ class Stepper: UIControl {
 
   // MARK: IBOutlet
 
+  @IBOutlet weak var circleView: CircleView!
   @IBOutlet var view: UIView!
   @IBOutlet weak var label: UILabel!
   @IBOutlet weak var labelYConstraint: NSLayoutConstraint!
+  @IBOutlet weak var arrowUp: Button!
+  @IBOutlet weak var arrowDown: Button!
+
+
+
+  var buttonState = true  // enlarge(false) && shrink(true)
+  var firstTap = true
+
+  var increment: Int = 1
+  var offset: CGFloat = 10
+
 
   // MARK: properties
 
@@ -57,6 +69,18 @@ class Stepper: UIControl {
 
     addGestureRecognizer(swipeUp)
     addGestureRecognizer(swipeDown)
+
+    let tapped = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
+    addGestureRecognizer(tapped)
+
+    arrowDown.alpha = 1
+    arrowUp.alpha = 1
+    label.alpha = 0
+//    panGesture.enabled = false
+//    setupSwipeGestures()
+//    setupTapGesture()
+    firstTap = true
+
   }
 
   // MARK: IBActions
@@ -69,6 +93,23 @@ class Stepper: UIControl {
     inc(-1)
   }
 
+
+  @IBAction func setupOutsideTapGesture(sender: UITapGestureRecognizer) {
+    UIView.animateWithDuration(0.1, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
+      if self.firstTap && self.buttonState == true {
+        self.arrowUp.alpha = 1
+        self.arrowDown.alpha = 1
+      } else {
+        self.shrink()
+      }
+
+      }, completion:nil)
+
+
+
+  }
+
+
   // MARK: private methods
 
   private func inc(n: Int) {
@@ -76,9 +117,51 @@ class Stepper: UIControl {
     sendActionsForControlEvents(.ValueChanged)
   }
 
+  func enlarge() {
+    circleView.transform = CGAffineTransformMakeScale(1.2, 1.2)
+
+    arrowUp.alpha = 0
+    arrowDown.alpha = 0
+    buttonState = false
+//    panGesture.enabled = true
+  }
+
+  func shrink() {
+    circleView.filledColor = UIColor(red: 211/255.0, green: 211/255.0, blue: 211/255.0, alpha: 0.3)
+    circleView.transform = CGAffineTransformMakeScale(1, 1)
+    arrowUp.alpha = 0
+    arrowDown.alpha = 0
+//    panGesture.enabled = false
+    buttonState = true
+  }
+
+  // Toggle animation ( active and inactive mode )
+  func handleTap(sender: UITapGestureRecognizer) { // added
+    circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
+    UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: [.AllowUserInteraction , .CurveEaseInOut ], animations: {
+      self.buttonState ? self.enlarge() : self.shrink()
+      if self.firstTap == true {
+//        self.arrowUp.center.y -= 28.0
+//        self.arrowDown.center.y += 28.0
+        self.firstTap = false
+      }
+      self.view.layoutIfNeeded()
+
+      }, completion:nil)
+
+    UIView.animateWithDuration(0.6, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
+      if !self.buttonState {
+        self.arrowDown.alpha = 1
+        self.arrowUp.alpha = 1
+        self.label.alpha = 1
+      }
+      }, completion:nil)
+    
+  }
+
+
   func handleSwipes(sender:UISwipeGestureRecognizer) {
-    let increment: Int
-    let offset: CGFloat
+
 
     // up or down
     if sender.direction == .Up {
@@ -92,12 +175,32 @@ class Stepper: UIControl {
     // animate stuff with constraints
     inc(increment)
 
-    UIView.animateWithDuration(0.1,
-      animations: { () -> Void in
-      self.label.transform = CGAffineTransformMakeTranslation(0.0, -offset)
-      }) { (_) -> Void in
-        UIView.animateWithDuration(0.1, animations: { () -> Void in
-          self.label.transform = CGAffineTransformIdentity
+    UIView.animateWithDuration(0.18, animations: { _ in
+      if self.firstTap {
+        self.arrowUp.alpha = 0
+        self.arrowDown.alpha = 0
+        self.labelYConstraint.constant = self.offset
+        self.view.layoutIfNeeded()
+        self.label.alpha = 1
+        self.label.textColor = UIColor(red: 52/255.0, green: 52/255.0, blue: 88/255.0, alpha: 1)
+        self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
+        self.firstTap = false
+      } else {
+        self.labelYConstraint.constant = self.offset
+        self.view.layoutIfNeeded()
+        self.label.alpha = 1
+        self.label.textColor = UIColor(red: 52/255.0, green: 52/255.0, blue: 88/255.0, alpha: 1)
+        self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
+      }
+      }) { _ in
+
+        UIView.animateWithDuration(0.18, animations: { _ in
+          self.labelYConstraint.constant = 0
+          self.view.layoutIfNeeded()
+//        self.circleView.layer.shadowColor = UIColor.clearColor().CGColor
+          self.circleView.layer.backgroundColor = UIColor(red: 211/255.0, green: 211/255.0, blue: 211/255.0, alpha: 0.3).CGColor
+          self.label.textColor = UIColor.whiteColor()
+
         })
     }
   }
