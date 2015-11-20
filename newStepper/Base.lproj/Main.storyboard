@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="FUTRFW.TTF">
+            <string>FuturistFixedWidth-Regular</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="newStepper" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZaA-jC-g8l" userLabel="circleView">
+                                <rect key="frame" x="138" y="284" width="100" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3lZ-SA-9ZR">
+                                        <rect key="frame" x="29" y="30" width="43" height="26"/>
+                                        <animations/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="upArrowWhite"/>
+                                        <connections>
+                                            <action selector="buttonUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MLL-Io-fUl"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTX-VI-NJf">
+                                        <rect key="frame" x="29" y="52" width="43" height="26"/>
+                                        <animations/>
+                                        <state key="normal" image="downArrowWhite">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="buttonDown:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xpX-cL-teA"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.82745098039215681" green="0.82745098039215681" blue="0.82745098039215681" alpha="0.2955927958015267" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="3lZ-SA-9ZR" firstAttribute="centerX" secondItem="ZaA-jC-g8l" secondAttribute="centerX" id="82g-Ah-WQE"/>
+                                    <constraint firstAttribute="width" constant="100" id="DlW-Iv-huT"/>
+                                    <constraint firstAttribute="height" constant="100" id="O5W-dk-JEY"/>
+                                    <constraint firstItem="3lZ-SA-9ZR" firstAttribute="top" secondItem="ZaA-jC-g8l" secondAttribute="top" constant="30" id="QmN-9K-lBY"/>
+                                    <constraint firstItem="3lZ-SA-9ZR" firstAttribute="leading" secondItem="eTX-VI-NJf" secondAttribute="leading" id="YiL-1b-oZ0"/>
+                                    <constraint firstAttribute="bottom" secondItem="eTX-VI-NJf" secondAttribute="bottom" constant="22" id="wHb-Ue-cM0"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="NW9-LV-6H5" appends="YES" id="v6Q-rn-yik"/>
+                                </connections>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPp-wV-R0b" userLabel="value">
+                                <rect key="frame" x="138" y="314" width="100" height="40"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="5Rl-vY-fL3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="FuturistFixedWidth-Regular" family="Futurist Fixed-width" pointSize="34"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="0.0" height="0.0"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KB4-nZ-eN3" customClass="Stepper" customModule="newStepper" customModuleProvider="target">
+                                <rect key="frame" x="137" y="537" width="100" height="100"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="5ZT-Km-vUa"/>
+                                    <constraint firstAttribute="height" constant="100" id="tqi-03-3af"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" red="0.20392156862745098" green="0.20392156862745098" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="aPp-wV-R0b" firstAttribute="centerX" secondItem="ZaA-jC-g8l" secondAttribute="centerX" id="2sk-Fj-TLM"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="KB4-nZ-eN3" secondAttribute="bottom" constant="30" id="9eD-gj-Vht"/>
+                            <constraint firstItem="KB4-nZ-eN3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="J7x-3W-128"/>
+                            <constraint firstAttribute="centerX" secondItem="ZaA-jC-g8l" secondAttribute="centerX" id="QZm-aJ-brp"/>
+                            <constraint firstItem="aPp-wV-R0b" firstAttribute="centerY" secondItem="ZaA-jC-g8l" secondAttribute="centerY" id="eqd-Af-naw"/>
+                            <constraint firstAttribute="centerY" secondItem="ZaA-jC-g8l" secondAttribute="centerY" id="y93-4r-joN"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="GVr-5s-5XM" appends="YES" id="ALa-AI-4B8"/>
+                        </connections>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="arrowDown" destination="eTX-VI-NJf" id="NCo-53-CAi"/>
+                        <outlet property="arrowUp" destination="3lZ-SA-9ZR" id="5BO-cC-qee"/>
+                        <outlet property="buttonDownConstraint" destination="wHb-Ue-cM0" id="ADh-lB-7Wg"/>
+                        <outlet property="buttonUpConstraint" destination="QmN-9K-lBY" id="LpX-cl-9iv"/>
+                        <outlet property="circleView" destination="ZaA-jC-g8l" id="OKI-fu-sDP"/>
+                        <outlet property="label" destination="aPp-wV-R0b" id="F7l-RM-g0e"/>
+                        <outlet property="labelYConstraint" destination="y93-4r-joN" id="2IS-3c-VZw"/>
+                        <outlet property="panGesture" destination="NW9-LV-6H5" id="UFd-oG-NvN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="GVr-5s-5XM">
+                    <connections>
+                        <action selector="setupOutsideTapGesture:" destination="BYZ-38-t0r" id="BfE-fN-eaW"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="NW9-LV-6H5">
+                    <connections>
+                        <action selector="setupPanGesture:" destination="BYZ-38-t0r" id="zsQ-mA-OlD"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="LRF-8V-ufT"/>
+                    </connections>
+                </panGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="214.5" y="269.5"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="downArrowWhite" width="16" height="16"/>
+        <image name="upArrowWhite" width="16" height="16"/>
+    </resources>
+</document>
