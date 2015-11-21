@@ -17,6 +17,7 @@
                 <outlet property="circleView" destination="IES-9o-Cgt" id="1nL-fJ-dKV"/>
                 <outlet property="label" destination="sQs-m7-k9N" id="DPK-9X-bHn"/>
                 <outlet property="labelYConstraint" destination="TBP-tW-Wrt" id="jla-xQ-gaa"/>
+                <outlet property="panXib" destination="Bw2-O0-HhP" id="qMY-10-8Ae"/>
                 <outlet property="view" destination="iN0-l3-epB" id="545-Df-rbb"/>
             </connections>
         </placeholder>
@@ -29,14 +30,18 @@
                     <rect key="frame" x="0.0" y="0.0" width="310" height="258"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
                             <color key="value" red="0.82745098039215681" green="0.82745098039215681" blue="0.82745098039215681" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="Bw2-O0-HhP" appends="YES" id="HSf-PX-M5o"/>
+                    </connections>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQs-m7-k9N" userLabel="value">
-                    <rect key="frame" x="140" y="109" width="30" height="40"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQs-m7-k9N" userLabel="value">
+                    <rect key="frame" x="146" y="109" width="19" height="40"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="FuturistFixedWidth-Regular" family="Futurist Fixed-width" pointSize="34"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -104,6 +109,11 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="315" y="399"/>
         </view>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="Bw2-O0-HhP">
+            <connections>
+                <action selector="addPanGesture:" destination="-1" id="1sd-Kw-dcQ"/>
+            </connections>
+        </panGestureRecognizer>
     </objects>
     <resources>
         <image name="downArrowWhite" width="16" height="16"/>

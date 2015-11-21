@@ -29,6 +29,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
   }
 
   @IBOutlet weak var stepperTest: Stepper!
+  @IBOutlet weak var stepperTest2: UIView!
 
   @IBOutlet var panGesture: UIPanGestureRecognizer!
   @IBOutlet weak var circleView: UIView!
@@ -103,7 +104,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
   }
 
   // Tap outside of the view
-  @IBAction func setupOutsideTapGesture(sender: UITapGestureRecognizer) {
+  @IBAction func setupOutsideTapGesture(sender: UITapGestureRecognizer) { // added
     UIView.animateWithDuration(0.1, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
       if self.firstTap && self.buttonState == true {
         self.arrowUp.alpha = 1
@@ -116,13 +117,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
   }
 
   // speed of the pan gesture
-  private struct Constants {
+  private struct Constants {   // Added
     static let GoalGestureScale :CGFloat = 10
   }
 
 
   @IBAction func setupPanGesture(sender: UIPanGestureRecognizer) {
-    switch sender.state {
+    switch sender.state {  // Added
     case .Ended: fallthrough
     case .Changed:
       self.circleView.layer.backgroundColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1).CGColor
@@ -139,7 +140,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
   func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     let translation = panGesture.translationInView(circleView)
-    if -Int(translation.y) >= 2  || -Int(translation.y) <= -2 {
+    if -Int(translation.y) >= 2  || -Int(translation.y) <= -2 {   // Added
       panGesture.enabled = false
       panGesture.enabled = true
       panGesture.setTranslation(CGPointZero, inView: circleView)
@@ -197,7 +198,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
   }
 
-  func handleSwipes(sender:UISwipeGestureRecognizer) {
+  func handleSwipes(sender:UISwipeGestureRecognizer) { // added
 
     // up or down
     if sender.direction == .Down && score == 0 {
@@ -214,7 +215,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     // animate adding single goals with constraints
     inc(increment)
 
-    UIView.animateWithDuration(0.18, animations: { _ in
+    UIView.animateWithDuration(0.18, animations: { _ in // added
       if self.firstTap {
         self.arrowUp.alpha = 0
         self.arrowDown.alpha = 0
@@ -233,7 +234,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
       }
       }) { _ in
 
-        UIView.animateWithDuration(0.18, animations: { _ in
+        UIView.animateWithDuration(0.18, animations: { _ in // added
           self.labelYConstraint.constant = 0
           self.view.layoutIfNeeded()
           self.circleView.layer.shadowColor = UIColor.clearColor().CGColor
