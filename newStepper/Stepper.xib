@@ -35,8 +35,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQs-m7-k9N" userLabel="value">
-                    <rect key="frame" x="146" y="109" width="19" height="40"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQs-m7-k9N" userLabel="value">
+                    <rect key="frame" x="140" y="109" width="30" height="40"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="FuturistFixedWidth-Regular" family="Futurist Fixed-width" pointSize="34"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -50,7 +50,7 @@
                         <constraint firstAttribute="width" constant="44" id="apy-Hd-bOA"/>
                     </constraints>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" image="chevron-up-xs ">
+                    <state key="normal" image="upArrowWhite">
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -71,7 +71,7 @@
                         <constraint firstAttribute="height" constant="44" id="wxi-2P-55t"/>
                     </constraints>
                     <color key="tintColor" red="0.59999999999999998" green="0.97647058819999999" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <state key="normal" image="chevron-down-xs">
+                    <state key="normal" image="downArrowWhite">
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -87,12 +87,10 @@
             <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="sQs-m7-k9N" firstAttribute="top" secondItem="fhL-Fw-MAT" secondAttribute="bottom" constant="2" id="0vd-lA-gfQ"/>
                 <constraint firstAttribute="bottom" secondItem="IES-9o-Cgt" secondAttribute="bottom" id="5aX-Mh-tdK"/>
                 <constraint firstItem="IES-9o-Cgt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="H1S-0q-1Kn"/>
                 <constraint firstItem="fhL-Fw-MAT" firstAttribute="top" secondItem="IES-9o-Cgt" secondAttribute="top" id="H62-3F-k2A"/>
                 <constraint firstItem="fhL-Fw-MAT" firstAttribute="centerX" secondItem="sQs-m7-k9N" secondAttribute="centerX" id="J4k-26-cB4"/>
-                <constraint firstItem="dip-lG-du7" firstAttribute="top" secondItem="sQs-m7-k9N" secondAttribute="bottom" constant="-1" id="JZG-A0-U3W"/>
                 <constraint firstAttribute="centerY" secondItem="sQs-m7-k9N" secondAttribute="centerY" id="TBP-tW-Wrt"/>
                 <constraint firstAttribute="trailing" secondItem="IES-9o-Cgt" secondAttribute="trailing" id="U34-i2-J2W"/>
                 <constraint firstItem="IES-9o-Cgt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="UbY-Ek-AzC"/>
@@ -104,17 +102,11 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="0vd-lA-gfQ"/>
-                    <exclude reference="JZG-A0-U3W"/>
-                </mask>
-            </variation>
-            <point key="canvasLocation" x="343" y="394"/>
+            <point key="canvasLocation" x="315" y="399"/>
         </view>
     </objects>
     <resources>
-        <image name="chevron-down-xs" width="16" height="16"/>
-        <image name="chevron-up-xs " width="16" height="16"/>
+        <image name="downArrowWhite" width="16" height="16"/>
+        <image name="upArrowWhite" width="16" height="16"/>
     </resources>
 </document>

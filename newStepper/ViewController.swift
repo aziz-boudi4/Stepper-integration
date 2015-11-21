@@ -28,6 +28,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     }
   }
 
+  @IBOutlet weak var stepperTest: Stepper!
 
   @IBOutlet var panGesture: UIPanGestureRecognizer!
   @IBOutlet weak var circleView: UIView!
@@ -70,6 +71,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+
     label.font = UIFont(name:"Futura-Medium", size: 44.0)
     arrowDown.alpha = 1 // A
     arrowUp.alpha = 1 // A

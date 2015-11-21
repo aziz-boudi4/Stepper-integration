@@ -1,7 +1,7 @@
 import UIKit
 
 //@IBDesignable
-class Stepper: UIControl {
+class Stepper: UIControl, UIGestureRecognizerDelegate  {
 
   @IBInspectable var min: Int = 0
   @IBInspectable var max: Int = 20
@@ -167,9 +167,11 @@ class Stepper: UIControl {
     if sender.direction == .Up {
       increment = 1
       offset = 10
-    } else {
+
+    } else if sender.direction == .Down {
       increment = -1
       offset = -10
+
     }
 
     // animate stuff with constraints
@@ -179,27 +181,29 @@ class Stepper: UIControl {
       if self.firstTap {
         self.arrowUp.alpha = 0
         self.arrowDown.alpha = 0
-        self.labelYConstraint.constant = self.offset
-        self.view.layoutIfNeeded()
         self.label.alpha = 1
         self.label.textColor = UIColor(red: 52/255.0, green: 52/255.0, blue: 88/255.0, alpha: 1)
         self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
         self.firstTap = false
+        self.view.frame.origin.y = -self.offset
+        self.view.layoutIfNeeded()
+
       } else {
-        self.labelYConstraint.constant = self.offset
+        self.view.frame.origin.y = -self.offset
         self.view.layoutIfNeeded()
         self.label.alpha = 1
         self.label.textColor = UIColor(red: 52/255.0, green: 52/255.0, blue: 88/255.0, alpha: 1)
         self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
+
       }
       }) { _ in
 
         UIView.animateWithDuration(0.18, animations: { _ in
-          self.labelYConstraint.constant = 0
+          self.view.frame.origin.y = 0
           self.view.layoutIfNeeded()
-//        self.circleView.layer.shadowColor = UIColor.clearColor().CGColor
-          self.circleView.layer.backgroundColor = UIColor(red: 211/255.0, green: 211/255.0, blue: 211/255.0, alpha: 0.3).CGColor
+          self.circleView.filledColor = UIColor(red: 211/255.0, green: 211/255.0, blue: 211/255.0, alpha: 0.3)
           self.label.textColor = UIColor.whiteColor()
+
 
         })
     }
