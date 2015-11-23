@@ -16,6 +16,8 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
   @IBOutlet weak var arrowUp: Button!
   @IBOutlet weak var arrowDown: Button!
 
+  @IBOutlet weak var upButtonCircleConstraint: NSLayoutConstraint!
+  @IBOutlet weak var downButtonCircleConstraint: NSLayoutConstraint!
 
 
   var buttonState = true  // enlarge(false) && shrink(true)
@@ -122,6 +124,7 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
       self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
       let translation = sender.translationInView(circleView)
       let goalChange = -Int(translation.y / Constants.GoalGestureScale)
+
       if goalChange != 0  {
         score = score + goalChange
         sender.setTranslation(CGPointZero, inView: circleView)
@@ -146,12 +149,6 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
     
   }
 
-
-
-
-
-
-
   /////
 
 
@@ -164,11 +161,14 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
 
   func enlarge() {
     circleView.transform = CGAffineTransformMakeScale(1.2, 1.2)
-
-    arrowUp.alpha = 0
-    arrowDown.alpha = 0
+    arrowUp.alpha = 1
+    arrowDown.alpha = 1
     buttonState = false
     panXib.enabled = true
+    upButtonCircleConstraint.constant = -17
+    downButtonCircleConstraint.constant = 17
+
+
   }
 
   func shrink() {
@@ -186,9 +186,10 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
     UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: [.AllowUserInteraction , .CurveEaseInOut ], animations: {
       self.buttonState ? self.enlarge() : self.shrink()
       if self.firstTap == true {
-//        self.arrowUp.center.y -= 15.0
-//        self.arrowDown.center.y += 15.0
-        self.firstTap = false
+          self.arrowUp.frame.origin.y -= self.frame.width / 4
+          self.arrowDown.frame.origin.y += self.frame.width / 4
+          print(self.arrowDown.frame.origin.y)
+          self.firstTap = false
       }
       self.view.layoutIfNeeded()
 
@@ -226,12 +227,13 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
       if self.firstTap {
         self.arrowUp.alpha = 0
         self.arrowDown.alpha = 0
+        self.view.frame.origin.y = -self.offset
+        self.view.layoutIfNeeded()
         self.label.alpha = 1
         self.label.textColor = UIColor(red: 52/255.0, green: 52/255.0, blue: 88/255.0, alpha: 1)
         self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
         self.firstTap = false
-        self.view.frame.origin.y = -self.offset
-        self.view.layoutIfNeeded()
+
 
       } else {
         self.view.frame.origin.y = -self.offset
