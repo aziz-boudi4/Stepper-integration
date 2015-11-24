@@ -1,7 +1,7 @@
 import UIKit
 
 //@IBDesignable
-class Stepper: UIControl, UIGestureRecognizerDelegate  {
+class Stepper: UIControl  {
 
   @IBInspectable var min: Int = 0
   @IBInspectable var max: Int = 20
@@ -16,8 +16,10 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
   @IBOutlet weak var arrowUp: Button!
   @IBOutlet weak var arrowDown: Button!
 
-  @IBOutlet weak var upButtonCircleConstraint: NSLayoutConstraint!
-  @IBOutlet weak var downButtonCircleConstraint: NSLayoutConstraint!
+
+
+  @IBOutlet weak var upButtonVerticalConstraint: NSLayoutConstraint!
+  @IBOutlet weak var downButtonVerticalConstraint: NSLayoutConstraint!
 
 
   var buttonState = true  // enlarge(false) && shrink(true)
@@ -51,6 +53,19 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
 
   // MARK: initializers
 
+  override func didMoveToSuperview() {
+    super.didMoveToSuperview()
+    var superViews = [UIView]()
+      func getSuperView(view: UIView) -> UIView {
+        guard let superview = view.superview else { return view }
+        return getSuperView(superview)
+      }
+    let view = getSuperView(self)
+    let tappedOutside = UITapGestureRecognizer(target: self, action: "handleOutsideTap:")
+    view.addGestureRecognizer(tappedOutside)
+  }
+
+
   override init(frame: CGRect) {
     super.init(frame: frame)
     loadNibView(nibName)
@@ -64,8 +79,8 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
   }
 
   private func commonInit() {
-    let swipeUp = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
-    let swipeDown = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+    let swipeUp = UISwipeGestureRecognizer(target: self, action: "handleSwipes:")
+    let swipeDown = UISwipeGestureRecognizer(target: self, action: "handleSwipes:")
 
     swipeUp.direction = .Up
     swipeDown.direction = .Down
@@ -73,9 +88,11 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
     addGestureRecognizer(swipeUp)
     addGestureRecognizer(swipeDown)
 
-    let tapped = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
+    let tapped = UITapGestureRecognizer(target: self, action: "handleTap:")
     addGestureRecognizer(tapped)
 
+    arrowUp.enabled = false
+    arrowDown.enabled = false
     arrowDown.alpha = 1
     arrowUp.alpha = 1
     label.alpha = 0
@@ -83,7 +100,7 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
 //    setupSwipeGestures()
 //    setupTapGesture()
     firstTap = true
-
+    view.layoutIfNeeded()
   }
 
   // MARK: IBActions
@@ -97,7 +114,19 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
   }
 
 
-  @IBAction func setupOutsideTapGesture(sender: UITapGestureRecognizer) {
+//  @IBAction func setupOutsideTapGesture(sender: UITapGestureRecognizer) {
+//    UIView.animateWithDuration(0.1, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
+//      if self.firstTap && self.buttonState == true {
+//        self.arrowUp.alpha = 1
+//        self.arrowDown.alpha = 1
+//      } else {
+//        self.shrink()
+//      }
+//
+//      }, completion:nil)
+//  }
+
+  func handleOutsideTap(sender: UITapGestureRecognizer) {
     UIView.animateWithDuration(0.1, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
       if self.firstTap && self.buttonState == true {
         self.arrowUp.alpha = 1
@@ -109,12 +138,11 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
       }, completion:nil)
   }
 
-  /////
-  // add the IBAction for the pan 
+  // add the IBAction for the pan
 
   // speed of the pan gesture
   private struct Constants {
-    static let GoalGestureScale :CGFloat = 10
+    static let GoalGestureScale :CGFloat = 15
   }
 
   @IBAction func addPanGesture(sender: UIPanGestureRecognizer) {
@@ -134,22 +162,6 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
   }
 
 
-  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    let translation = panXib.translationInView(circleView)
-    if -Int(translation.y) >= 2  || -Int(translation.y) <= -2 {
-      panXib.enabled = false
-      panXib.enabled = true
-      panXib.setTranslation(CGPointZero, inView: circleView)
-      return true
-    } else  {
-      panXib.enabled = true
-      return false
-    }
-
-    
-  }
-
-  /////
 
 
   // MARK: private methods
@@ -165,10 +177,6 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
     arrowDown.alpha = 1
     buttonState = false
     panXib.enabled = true
-    upButtonCircleConstraint.constant = -17
-    downButtonCircleConstraint.constant = 17
-
-
   }
 
   func shrink() {
@@ -182,15 +190,25 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
 
   // Toggle animation ( active and inactive mode )
   func handleTap(sender: UITapGestureRecognizer) { // added
+//    self.view.layoutIfNeeded()
     circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
     UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: [.AllowUserInteraction , .CurveEaseInOut ], animations: {
-      self.buttonState ? self.enlarge() : self.shrink()
+
       if self.firstTap == true {
-          self.arrowUp.frame.origin.y -= self.frame.width / 4
-          self.arrowDown.frame.origin.y += self.frame.width / 4
-          print(self.arrowDown.frame.origin.y)
-          self.firstTap = false
+
+            self.circleView.transform = CGAffineTransformMakeScale(1.2, 1.2)
+            self.upButtonVerticalConstraint.constant += 20
+            self.downButtonVerticalConstraint.constant -= 20
+            self.label.alpha = 1
+            self.firstTap = false
+            self.buttonState = false
+            self.panXib.enabled = true
+
+      } else if self.firstTap == false {
+
+            self.buttonState ? self.enlarge() : self.shrink()
       }
+
       self.view.layoutIfNeeded()
 
       }, completion:nil)
@@ -208,6 +226,7 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
 
   func handleSwipes(sender:UISwipeGestureRecognizer) {
 
+    self.view.layoutIfNeeded()
 
     // up or down
     if sender.direction == .Up {
@@ -224,11 +243,11 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
     inc(increment)
 
     UIView.animateWithDuration(0.18, animations: { _ in
+      self.view.layoutIfNeeded()
       if self.firstTap {
         self.arrowUp.alpha = 0
         self.arrowDown.alpha = 0
         self.view.frame.origin.y = -self.offset
-        self.view.layoutIfNeeded()
         self.label.alpha = 1
         self.label.textColor = UIColor(red: 52/255.0, green: 52/255.0, blue: 88/255.0, alpha: 1)
         self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
@@ -237,17 +256,14 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
 
       } else {
         self.view.frame.origin.y = -self.offset
-        self.view.layoutIfNeeded()
         self.label.alpha = 1
         self.label.textColor = UIColor(red: 52/255.0, green: 52/255.0, blue: 88/255.0, alpha: 1)
         self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
-
       }
       }) { _ in
 
         UIView.animateWithDuration(0.18, animations: { _ in
           self.view.frame.origin.y = 0
-          self.view.layoutIfNeeded()
           self.circleView.filledColor = UIColor(red: 211/255.0, green: 211/255.0, blue: 211/255.0, alpha: 0.3)
           self.label.textColor = UIColor.whiteColor()
 
@@ -255,7 +271,26 @@ class Stepper: UIControl, UIGestureRecognizerDelegate  {
         })
     }
   }
+
+
 }
+
+extension Stepper: UIGestureRecognizerDelegate {
+
+  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    let translation = panXib.translationInView(circleView)
+    if -Int(translation.y) >= 2  || -Int(translation.y) <= -2 {
+      panXib.enabled = false
+      panXib.enabled = true
+      panXib.setTranslation(CGPointZero, inView: circleView)
+      return true
+    } else  {
+      panXib.enabled = true
+      return false
+    }
+  }
+}
+
 
 
 

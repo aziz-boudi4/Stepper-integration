@@ -61,7 +61,7 @@
                                     <outletCollection property="gestureRecognizers" destination="NW9-LV-6H5" appends="YES" id="v6Q-rn-yik"/>
                                 </connections>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPp-wV-R0b" userLabel="value">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPp-wV-R0b" userLabel="value">
                                 <rect key="frame" x="138" y="314" width="100" height="40"/>
                                 <animations/>
                                 <constraints>
@@ -90,6 +90,15 @@
                                     <constraint firstAttribute="height" constant="100" id="WNt-y5-DO1"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fk3-Ho-pB0" customClass="Stepper" customModule="newStepper" customModuleProvider="target">
+                                <rect key="frame" x="222" y="50" width="80" height="80"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="Xxq-WE-iaP"/>
+                                    <constraint firstAttribute="height" constant="80" id="yR6-4E-xjX"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.20392156862745098" green="0.20392156862745098" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
@@ -101,13 +110,12 @@
                             <constraint firstItem="KB4-nZ-eN3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-74.5" id="J7x-3W-128"/>
                             <constraint firstAttribute="centerX" secondItem="ZaA-jC-g8l" secondAttribute="centerX" id="QZm-aJ-brp"/>
                             <constraint firstItem="aPp-wV-R0b" firstAttribute="centerY" secondItem="ZaA-jC-g8l" secondAttribute="centerY" id="eqd-Af-naw"/>
+                            <constraint firstItem="fk3-Ho-pB0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="ew7-DR-DD9"/>
                             <constraint firstItem="8ly-Qw-1uJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="74" id="iMo-u5-bi1"/>
+                            <constraint firstItem="fk3-Ho-pB0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="75" id="wgh-hF-Rzx"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="8ly-Qw-1uJ" secondAttribute="bottom" constant="60" id="xT1-4O-FF9"/>
                             <constraint firstAttribute="centerY" secondItem="ZaA-jC-g8l" secondAttribute="centerY" id="y93-4r-joN"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="GVr-5s-5XM" appends="YES" id="ALa-AI-4B8"/>
-                        </connections>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -124,11 +132,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="GVr-5s-5XM">
-                    <connections>
-                        <action selector="setupOutsideTapGesture:" destination="KB4-nZ-eN3" id="yyW-ho-LKe"/>
-                    </connections>
-                </tapGestureRecognizer>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="NW9-LV-6H5">
                     <connections>
                         <action selector="setupPanGesture:" destination="BYZ-38-t0r" id="zsQ-mA-OlD"/>

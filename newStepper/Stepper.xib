@@ -15,11 +15,11 @@
                 <outlet property="arrowDown" destination="dip-lG-du7" id="h7y-fB-Kcq"/>
                 <outlet property="arrowUp" destination="fhL-Fw-MAT" id="fFp-zT-nI3"/>
                 <outlet property="circleView" destination="IES-9o-Cgt" id="1nL-fJ-dKV"/>
-                <outlet property="downButtonCircleConstraint" destination="wex-a6-LlQ" id="2Ir-tZ-PFn"/>
+                <outlet property="downButtonVerticalConstraint" destination="kb2-C4-h8A" id="gKL-8g-xEL"/>
                 <outlet property="label" destination="sQs-m7-k9N" id="DPK-9X-bHn"/>
                 <outlet property="labelYConstraint" destination="TBP-tW-Wrt" id="jla-xQ-gaa"/>
                 <outlet property="panXib" destination="Bw2-O0-HhP" id="qMY-10-8Ae"/>
-                <outlet property="upButtonCircleConstraint" destination="H62-3F-k2A" id="hvY-gL-U5r"/>
+                <outlet property="upButtonVerticalConstraint" destination="VMC-Js-Eie" id="WdX-kw-Lzp"/>
                 <outlet property="view" destination="iN0-l3-epB" id="545-Df-rbb"/>
             </connections>
         </placeholder>
@@ -42,48 +42,49 @@
                         <outletCollection property="gestureRecognizers" destination="Bw2-O0-HhP" appends="YES" id="HSf-PX-M5o"/>
                     </connections>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQs-m7-k9N" userLabel="value">
-                    <rect key="frame" x="146" y="109" width="19" height="40"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQs-m7-k9N" userLabel="value">
+                    <rect key="frame" x="138" y="108" width="34" height="43"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="FuturistFixedWidth-Regular" family="Futurist Fixed-width" pointSize="34"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhL-Fw-MAT" userLabel="up-button" customClass="Button" customModule="newStepper" customModuleProvider="target">
-                    <rect key="frame" x="133" y="20" width="44" height="44"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhL-Fw-MAT" userLabel="up-button" customClass="Button" customModule="newStepper" customModuleProvider="target">
+                    <rect key="frame" x="133" y="99" width="44" height="24"/>
                     <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="44" id="WKA-0N-6fs"/>
+                        <constraint firstAttribute="height" constant="24" id="WKA-0N-6fs"/>
                         <constraint firstAttribute="width" constant="44" id="apy-Hd-bOA"/>
                     </constraints>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" image="upArrowWhite">
+                    <color key="tintColor" red="0.20392156862745098" green="0.20392156862745098" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" image="chevron-up-s">
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="value" red="0.20392156862745098" green="0.20392156862745098" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="didPressPlusBtn:" destination="-1" eventType="touchUpInside" id="XDB-8l-dka"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dip-lG-du7" userLabel="down-button" customClass="Button" customModule="newStepper" customModuleProvider="target">
-                    <rect key="frame" x="133" y="194" width="44" height="44"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dip-lG-du7" userLabel="down-button" customClass="Button" customModule="newStepper" customModuleProvider="target">
+                    <rect key="frame" x="133" y="136" width="44" height="24"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="44" id="5Q9-dD-K2B"/>
-                        <constraint firstAttribute="height" constant="44" id="wxi-2P-55t"/>
+                        <constraint firstAttribute="height" constant="24" id="wxi-2P-55t"/>
                     </constraints>
-                    <color key="tintColor" red="0.59999999999999998" green="0.97647058819999999" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <state key="normal" image="downArrowWhite">
+                    <color key="tintColor" red="0.20392156862745098" green="0.20392156862745098" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" image="chevron-down-s">
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="value" red="0.20392156862745098" green="0.20392156862745098" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -96,14 +97,14 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="IES-9o-Cgt" secondAttribute="bottom" id="5aX-Mh-tdK"/>
                 <constraint firstItem="IES-9o-Cgt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="H1S-0q-1Kn"/>
-                <constraint firstItem="fhL-Fw-MAT" firstAttribute="top" secondItem="IES-9o-Cgt" secondAttribute="top" constant="20" id="H62-3F-k2A"/>
                 <constraint firstItem="fhL-Fw-MAT" firstAttribute="centerX" secondItem="sQs-m7-k9N" secondAttribute="centerX" id="J4k-26-cB4"/>
                 <constraint firstAttribute="centerY" secondItem="sQs-m7-k9N" secondAttribute="centerY" id="TBP-tW-Wrt"/>
                 <constraint firstAttribute="trailing" secondItem="IES-9o-Cgt" secondAttribute="trailing" id="U34-i2-J2W"/>
                 <constraint firstItem="IES-9o-Cgt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="UbY-Ek-AzC"/>
+                <constraint firstItem="sQs-m7-k9N" firstAttribute="top" secondItem="fhL-Fw-MAT" secondAttribute="bottom" constant="-15" id="VMC-Js-Eie"/>
                 <constraint firstItem="dip-lG-du7" firstAttribute="centerX" secondItem="sQs-m7-k9N" secondAttribute="centerX" id="bTF-Js-zvF"/>
                 <constraint firstAttribute="centerX" secondItem="sQs-m7-k9N" secondAttribute="centerX" id="jnb-Zw-llD"/>
-                <constraint firstItem="dip-lG-du7" firstAttribute="bottom" secondItem="IES-9o-Cgt" secondAttribute="bottom" constant="-20" id="wex-a6-LlQ"/>
+                <constraint firstItem="sQs-m7-k9N" firstAttribute="bottom" secondItem="dip-lG-du7" secondAttribute="top" constant="15" id="kb2-C4-h8A"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -114,11 +115,12 @@
         <panGestureRecognizer minimumNumberOfTouches="1" id="Bw2-O0-HhP">
             <connections>
                 <action selector="addPanGesture:" destination="-1" id="1sd-Kw-dcQ"/>
+                <outlet property="delegate" destination="-1" id="w0N-aR-xfP"/>
             </connections>
         </panGestureRecognizer>
     </objects>
     <resources>
-        <image name="downArrowWhite" width="16" height="16"/>
-        <image name="upArrowWhite" width="16" height="16"/>
+        <image name="chevron-down-s" width="21" height="12"/>
+        <image name="chevron-up-s" width="21" height="12"/>
     </resources>
 </document>
