@@ -3,6 +3,8 @@ import UIKit
 //@IBDesignable
 class Stepper: UIControl  {
 
+  weak static var active: Stepper?
+
   @IBInspectable var min: Int = 0
   @IBInspectable var max: Int = 20
 
@@ -172,7 +174,12 @@ class Stepper: UIControl  {
   }
 
   func enlarge() {
+    Stepper.active?.shrink()
+    Stepper.active = self
+    circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1.0)
     circleView.transform = CGAffineTransformMakeScale(1.2, 1.2)
+    arrowUp.transform = CGAffineTransformMakeScale(1.2, 1.2)
+    arrowDown.transform = CGAffineTransformMakeScale(1.2, 1.2)
     arrowUp.alpha = 1
     arrowDown.alpha = 1
     buttonState = false
@@ -194,17 +201,18 @@ class Stepper: UIControl  {
     circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
     UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: [.AllowUserInteraction , .CurveEaseInOut ], animations: {
 
-      if self.firstTap == true {
+      if self.firstTap {
 
             self.circleView.transform = CGAffineTransformMakeScale(1.2, 1.2)
-            self.upButtonVerticalConstraint.constant += 20
-            self.downButtonVerticalConstraint.constant -= 20
+            self.upButtonVerticalConstraint.constant += self.circleView.frame.height / 8
+            self.downButtonVerticalConstraint.constant -= self.circleView.frame.height / 8
             self.label.alpha = 1
             self.firstTap = false
             self.buttonState = false
             self.panXib.enabled = true
 
-      } else if self.firstTap == false {
+
+      } else {
 
             self.buttonState ? self.enlarge() : self.shrink()
       }
@@ -218,6 +226,8 @@ class Stepper: UIControl  {
         self.arrowDown.alpha = 1
         self.arrowUp.alpha = 1
         self.label.alpha = 1
+        self.arrowUp.transform = CGAffineTransformMakeScale(1.3, 1.3)
+        self.arrowDown.transform = CGAffineTransformMakeScale(1.3, 1.3)
       }
       }, completion:nil)
     
@@ -225,6 +235,10 @@ class Stepper: UIControl  {
 
 
   func handleSwipes(sender:UISwipeGestureRecognizer) {
+    if let active = Stepper.active where active !== self {
+      active.shrink()
+      Stepper.active = nil
+    }
 
     self.view.layoutIfNeeded()
 
