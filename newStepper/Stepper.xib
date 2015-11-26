@@ -4,22 +4,15 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="FUTRFW.TTF">
-            <string>FuturistFixedWidth-Regular</string>
-        </mutableArray>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Stepper" customModule="newStepper" customModuleProvider="target">
             <connections>
                 <outlet property="arrowDown" destination="dip-lG-du7" id="h7y-fB-Kcq"/>
                 <outlet property="arrowUp" destination="fhL-Fw-MAT" id="fFp-zT-nI3"/>
                 <outlet property="circleView" destination="IES-9o-Cgt" id="1nL-fJ-dKV"/>
-                <outlet property="downButtonVerticalConstraint" destination="kb2-C4-h8A" id="gKL-8g-xEL"/>
+                <outlet property="downButtonVerticalConstraint" destination="YUR-Q4-953" id="rMX-9H-CrH"/>
                 <outlet property="label" destination="sQs-m7-k9N" id="DPK-9X-bHn"/>
-                <outlet property="labelYConstraint" destination="TBP-tW-Wrt" id="jla-xQ-gaa"/>
-                <outlet property="panXib" destination="Bw2-O0-HhP" id="qMY-10-8Ae"/>
-                <outlet property="upButtonVerticalConstraint" destination="VMC-Js-Eie" id="WdX-kw-Lzp"/>
+                <outlet property="upButtonVerticalConstraint" destination="Nky-Th-EhB" id="DSW-Eh-eFh"/>
                 <outlet property="view" destination="iN0-l3-epB" id="545-Df-rbb"/>
             </connections>
         </placeholder>
@@ -28,63 +21,60 @@
             <rect key="frame" x="0.0" y="0.0" width="310" height="258"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IES-9o-Cgt" userLabel="circle-bg" customClass="CircleView" customModule="newStepper" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IES-9o-Cgt" userLabel="circleView" customClass="CircleView" customModule="newStepper" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="310" height="258"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
                             <color key="value" red="0.82745098039215681" green="0.82745098039215681" blue="0.82745098039215681" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outletCollection property="gestureRecognizers" destination="Bw2-O0-HhP" appends="YES" id="HSf-PX-M5o"/>
-                    </connections>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQs-m7-k9N" userLabel="value">
-                    <rect key="frame" x="138" y="108" width="34" height="43"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhL-Fw-MAT" userLabel="up-button" customClass="Button" customModule="newStepper" customModuleProvider="target">
+                    <rect key="frame" x="133" y="100" width="44" height="24"/>
                     <animations/>
-                    <fontDescription key="fontDescription" name="FuturistFixedWidth-Regular" family="Futurist Fixed-width" pointSize="34"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhL-Fw-MAT" userLabel="up-button" customClass="Button" customModule="newStepper" customModuleProvider="target">
-                    <rect key="frame" x="133" y="99" width="44" height="24"/>
-                    <animations/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="24" id="WKA-0N-6fs"/>
-                        <constraint firstAttribute="width" constant="44" id="apy-Hd-bOA"/>
+                        <constraint firstAttribute="height" constant="24" id="VUP-c7-VtU"/>
+                        <constraint firstAttribute="width" constant="44" id="wfI-0G-1bW"/>
                     </constraints>
-                    <color key="tintColor" red="0.20392156862745098" green="0.20392156862745098" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <state key="normal" image="chevron-bold-up-xs">
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                            <color key="value" red="0.20392156862745098" green="0.20392156862745098" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="didPressPlusBtn:" destination="-1" eventType="touchUpInside" id="XDB-8l-dka"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dip-lG-du7" userLabel="down-button" customClass="Button" customModule="newStepper" customModuleProvider="target">
-                    <rect key="frame" x="133" y="136" width="44" height="24"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sQs-m7-k9N" userLabel="value">
+                    <rect key="frame" x="0.0" y="109" width="310" height="41"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="41" id="A96-3v-G0S"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="34"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dip-lG-du7" userLabel="down-button" customClass="Button" customModule="newStepper" customModuleProvider="target">
+                    <rect key="frame" x="133" y="135" width="44" height="24"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="44" id="5Q9-dD-K2B"/>
-                        <constraint firstAttribute="height" constant="24" id="wxi-2P-55t"/>
-                    </constraints>
-                    <color key="tintColor" red="0.20392156862745098" green="0.20392156862745098" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" red="0.59999999999999998" green="0.97647058819999999" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" image="chevron-bold-down-xs">
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                            <color key="value" red="0.20392156862745098" green="0.20392156862745098" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -95,16 +85,22 @@
             <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="IES-9o-Cgt" secondAttribute="bottom" id="5aX-Mh-tdK"/>
-                <constraint firstItem="IES-9o-Cgt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="H1S-0q-1Kn"/>
-                <constraint firstItem="fhL-Fw-MAT" firstAttribute="centerX" secondItem="sQs-m7-k9N" secondAttribute="centerX" id="J4k-26-cB4"/>
-                <constraint firstAttribute="centerY" secondItem="sQs-m7-k9N" secondAttribute="centerY" id="TBP-tW-Wrt"/>
-                <constraint firstAttribute="trailing" secondItem="IES-9o-Cgt" secondAttribute="trailing" id="U34-i2-J2W"/>
-                <constraint firstItem="IES-9o-Cgt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="UbY-Ek-AzC"/>
-                <constraint firstItem="sQs-m7-k9N" firstAttribute="top" secondItem="fhL-Fw-MAT" secondAttribute="bottom" constant="-15" id="VMC-Js-Eie"/>
-                <constraint firstItem="dip-lG-du7" firstAttribute="centerX" secondItem="sQs-m7-k9N" secondAttribute="centerX" id="bTF-Js-zvF"/>
-                <constraint firstAttribute="centerX" secondItem="sQs-m7-k9N" secondAttribute="centerX" id="jnb-Zw-llD"/>
-                <constraint firstItem="sQs-m7-k9N" firstAttribute="bottom" secondItem="dip-lG-du7" secondAttribute="top" constant="15" id="kb2-C4-h8A"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dip-lG-du7" secondAttribute="bottom" id="1oX-Ia-od7"/>
+                <constraint firstItem="sQs-m7-k9N" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="3oi-fu-foG"/>
+                <constraint firstItem="IES-9o-Cgt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="KU0-B2-9V3"/>
+                <constraint firstItem="sQs-m7-k9N" firstAttribute="top" secondItem="fhL-Fw-MAT" secondAttribute="bottom" priority="750" constant="-15" id="Nky-Th-EhB"/>
+                <constraint firstItem="dip-lG-du7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Ohe-HR-6fc"/>
+                <constraint firstItem="dip-lG-du7" firstAttribute="width" secondItem="fhL-Fw-MAT" secondAttribute="width" id="Paz-wI-9nC"/>
+                <constraint firstItem="IES-9o-Cgt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Rlp-u6-iSF"/>
+                <constraint firstItem="fhL-Fw-MAT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" id="SDI-gh-jpM"/>
+                <constraint firstItem="fhL-Fw-MAT" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="X4n-hA-vcO"/>
+                <constraint firstItem="dip-lG-du7" firstAttribute="top" secondItem="sQs-m7-k9N" secondAttribute="bottom" priority="750" constant="-15" id="YUR-Q4-953"/>
+                <constraint firstItem="sQs-m7-k9N" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Z9C-UY-772"/>
+                <constraint firstItem="sQs-m7-k9N" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="bPa-8g-zeI"/>
+                <constraint firstAttribute="bottom" secondItem="IES-9o-Cgt" secondAttribute="bottom" id="czP-vg-mHe"/>
+                <constraint firstItem="dip-lG-du7" firstAttribute="height" secondItem="fhL-Fw-MAT" secondAttribute="height" id="htq-QX-Vyo"/>
+                <constraint firstAttribute="trailing" secondItem="IES-9o-Cgt" secondAttribute="trailing" id="kHw-Ks-fLr"/>
+                <constraint firstAttribute="trailing" secondItem="sQs-m7-k9N" secondAttribute="trailing" id="viw-aC-fA5"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -112,12 +108,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="315" y="399"/>
         </view>
-        <panGestureRecognizer minimumNumberOfTouches="1" id="Bw2-O0-HhP">
-            <connections>
-                <action selector="addPanGesture:" destination="-1" id="1sd-Kw-dcQ"/>
-                <outlet property="delegate" destination="-1" id="w0N-aR-xfP"/>
-            </connections>
-        </panGestureRecognizer>
     </objects>
     <resources>
         <image name="chevron-bold-down-xs" width="16" height="16"/>

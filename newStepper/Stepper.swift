@@ -10,26 +10,20 @@ class Stepper: UIControl  {
 
   // MARK: IBOutlet
 
-  @IBOutlet var panXib: UIPanGestureRecognizer!
-  @IBOutlet weak var circleView: CircleView!
   @IBOutlet var view: UIView!
+  @IBOutlet weak var circleView: CircleView!
   @IBOutlet weak var label: UILabel!
-  @IBOutlet weak var labelYConstraint: NSLayoutConstraint!
   @IBOutlet weak var arrowUp: Button!
   @IBOutlet weak var arrowDown: Button!
-
-
-
   @IBOutlet weak var upButtonVerticalConstraint: NSLayoutConstraint!
   @IBOutlet weak var downButtonVerticalConstraint: NSLayoutConstraint!
 
 
   var buttonState = true  // enlarge(false) && shrink(true)
   var firstTap = true
-
   var increment: Int = 1
   var offset: CGFloat = 10
-
+  var panMultiGoals: UIPanGestureRecognizer!
 
   // MARK: properties
 
@@ -55,17 +49,17 @@ class Stepper: UIControl  {
 
   // MARK: initializers
 
-  override func didMoveToSuperview() {
-    super.didMoveToSuperview()
-    var superViews = [UIView]()
-      func getSuperView(view: UIView) -> UIView {
-        guard let superview = view.superview else { return view }
-        return getSuperView(superview)
-      }
-    let view = getSuperView(self)
-    let tappedOutside = UITapGestureRecognizer(target: self, action: "handleOutsideTap:")
-    view.addGestureRecognizer(tappedOutside)
-  }
+//  override func didMoveToSuperview() {
+//    super.didMoveToSuperview()
+//    var superViews = [UIView]()
+//      func getSuperView(view: UIView) -> UIView {
+//        guard let superview = view.superview else { return view }
+//        return getSuperView(superview)
+//      }
+//    let view = getSuperView(self)
+//    let tappedOutside = UITapGestureRecognizer(target: self, action: "handleOutsideTap:")
+//    view.addGestureRecognizer(tappedOutside)
+//  }
 
 
   override init(frame: CGRect) {
@@ -93,15 +87,18 @@ class Stepper: UIControl  {
     let tapped = UITapGestureRecognizer(target: self, action: "handleTap:")
     addGestureRecognizer(tapped)
 
-    arrowUp.enabled = false
-    arrowDown.enabled = false
+    panMultiGoals = UIPanGestureRecognizer(target: self, action: "handlePan:")
+    addGestureRecognizer(panMultiGoals)
+    panMultiGoals.delegate = self
+
     arrowDown.alpha = 1
     arrowUp.alpha = 1
     label.alpha = 0
-    panXib.enabled = false
-//    setupSwipeGestures()
-//    setupTapGesture()
+    panMultiGoals.enabled = false
     firstTap = true
+    buttonState = true
+    arrowUp.enabled = false
+    arrowDown.enabled = false
     view.layoutIfNeeded()
   }
 
@@ -128,26 +125,25 @@ class Stepper: UIControl  {
 //      }, completion:nil)
 //  }
 
-  func handleOutsideTap(sender: UITapGestureRecognizer) {
-    UIView.animateWithDuration(0.1, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
-      if self.firstTap && self.buttonState == true {
-        self.arrowUp.alpha = 1
-        self.arrowDown.alpha = 1
-      } else {
-        self.shrink()
-      }
+//  func handleOutsideTap(sender: UITapGestureRecognizer) {
+//    UIView.animateWithDuration(0.1, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
+//      if self.firstTap && self.buttonState == true {
+//        self.arrowUp.alpha = 1
+//        self.arrowDown.alpha = 1
+//      } else {
+//        self.shrink()
+//      }
+//
+//      }, completion:nil)
+//  }
 
-      }, completion:nil)
-  }
-
-  // add the IBAction for the pan
 
   // speed of the pan gesture
   private struct Constants {
     static let GoalGestureScale :CGFloat = 15
   }
 
-  @IBAction func addPanGesture(sender: UIPanGestureRecognizer) {
+  func handlePan(sender: UIPanGestureRecognizer) {
     switch sender.state {
     case .Ended: fallthrough
     case .Changed:
@@ -176,6 +172,8 @@ class Stepper: UIControl  {
   func enlarge() {
     Stepper.active?.shrink()
     Stepper.active = self
+
+
     circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1.0)
     circleView.transform = CGAffineTransformMakeScale(1.2, 1.2)
     arrowUp.transform = CGAffineTransformMakeScale(1.2, 1.2)
@@ -183,7 +181,9 @@ class Stepper: UIControl  {
     arrowUp.alpha = 1
     arrowDown.alpha = 1
     buttonState = false
-    panXib.enabled = true
+    panMultiGoals.enabled = true
+    arrowDown.enabled = true
+    arrowUp.enabled = true
   }
 
   func shrink() {
@@ -191,44 +191,43 @@ class Stepper: UIControl  {
     circleView.transform = CGAffineTransformMakeScale(1, 1)
     arrowUp.alpha = 0
     arrowDown.alpha = 0
-    panXib.enabled = false
+    panMultiGoals.enabled = false
     buttonState = true
   }
 
   // Toggle animation ( active and inactive mode )
   func handleTap(sender: UITapGestureRecognizer) { // added
-//    self.view.layoutIfNeeded()
+    self.view.layoutIfNeeded()
     circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
     UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: [.AllowUserInteraction , .CurveEaseInOut ], animations: {
 
       if self.firstTap {
-
             self.circleView.transform = CGAffineTransformMakeScale(1.2, 1.2)
-            self.upButtonVerticalConstraint.constant += self.circleView.frame.height / 8
-            self.downButtonVerticalConstraint.constant -= self.circleView.frame.height / 8
+            self.upButtonVerticalConstraint.constant = 100
+            self.downButtonVerticalConstraint.constant = 100
             self.label.alpha = 1
+            self.arrowUp.alpha = 1
+            self.arrowDown.alpha = 1
             self.firstTap = false
             self.buttonState = false
-            self.panXib.enabled = true
-
+            self.panMultiGoals.enabled = true
 
       } else {
-
             self.buttonState ? self.enlarge() : self.shrink()
       }
 
-      self.view.layoutIfNeeded()
+            self.view.layoutIfNeeded()
 
       }, completion:nil)
 
-    UIView.animateWithDuration(0.6, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
-      if !self.buttonState {
-        self.arrowDown.alpha = 1
-        self.arrowUp.alpha = 1
-        self.label.alpha = 1
-        self.arrowUp.transform = CGAffineTransformMakeScale(1.3, 1.3)
-        self.arrowDown.transform = CGAffineTransformMakeScale(1.3, 1.3)
-      }
+        UIView.animateWithDuration(0.6, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
+            if !self.buttonState {
+                self.arrowDown.alpha = 1
+                self.arrowUp.alpha = 1
+                self.label.alpha = 1
+                self.arrowUp.transform = CGAffineTransformMakeScale(1.3, 1.3)
+                self.arrowDown.transform = CGAffineTransformMakeScale(1.3, 1.3)
+          }
       }, completion:nil)
     
   }
@@ -292,14 +291,14 @@ class Stepper: UIControl  {
 extension Stepper: UIGestureRecognizerDelegate {
 
   func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    let translation = panXib.translationInView(circleView)
+    let translation = panMultiGoals.translationInView(circleView)
     if -Int(translation.y) >= 2  || -Int(translation.y) <= -2 {
-      panXib.enabled = false
-      panXib.enabled = true
-      panXib.setTranslation(CGPointZero, inView: circleView)
+      panMultiGoals.enabled = false
+      panMultiGoals.enabled = true
+      panMultiGoals.setTranslation(CGPointZero, inView: circleView)
       return true
     } else  {
-      panXib.enabled = true
+      panMultiGoals.enabled = true
       return false
     }
   }

@@ -61,7 +61,7 @@
                                     <outletCollection property="gestureRecognizers" destination="NW9-LV-6H5" appends="YES" id="v6Q-rn-yik"/>
                                 </connections>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPp-wV-R0b" userLabel="value">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPp-wV-R0b" userLabel="value">
                                 <rect key="frame" x="138" y="314" width="100" height="40"/>
                                 <animations/>
                                 <constraints>
@@ -99,6 +99,15 @@
                                     <constraint firstAttribute="height" constant="80" id="yR6-4E-xjX"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wMS-1r-cfg" customClass="Stepper" customModule="newStepper" customModuleProvider="target">
+                                <rect key="frame" x="33" y="45" width="100" height="100"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Yrm-EJ-XQ1"/>
+                                    <constraint firstAttribute="width" constant="100" id="d7j-8C-UpW"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.20392156862745098" green="0.20392156862745098" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
@@ -108,7 +117,9 @@
                             <constraint firstItem="aPp-wV-R0b" firstAttribute="centerX" secondItem="ZaA-jC-g8l" secondAttribute="centerX" id="2sk-Fj-TLM"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="KB4-nZ-eN3" secondAttribute="bottom" constant="60" id="9eD-gj-Vht"/>
                             <constraint firstItem="KB4-nZ-eN3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-74.5" id="J7x-3W-128"/>
+                            <constraint firstItem="wMS-1r-cfg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-104.5" id="PLs-GZ-buK"/>
                             <constraint firstAttribute="centerX" secondItem="ZaA-jC-g8l" secondAttribute="centerX" id="QZm-aJ-brp"/>
+                            <constraint firstItem="wMS-1r-cfg" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="25" id="TG0-9E-Yre"/>
                             <constraint firstItem="aPp-wV-R0b" firstAttribute="centerY" secondItem="ZaA-jC-g8l" secondAttribute="centerY" id="eqd-Af-naw"/>
                             <constraint firstItem="fk3-Ho-pB0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="ew7-DR-DD9"/>
                             <constraint firstItem="8ly-Qw-1uJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="74" id="iMo-u5-bi1"/>
