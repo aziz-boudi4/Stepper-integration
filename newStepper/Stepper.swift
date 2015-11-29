@@ -9,7 +9,7 @@ class Stepper: UIControl  {
   @IBInspectable var max: Int = 20
 
   // MARK: IBOutlet
-
+  @IBOutlet var arrowsLabelAlpha: [UIView]!
   @IBOutlet var view: UIView!
   @IBOutlet weak var circleView: CircleView!
   @IBOutlet weak var label: UILabel!
@@ -94,11 +94,11 @@ class Stepper: UIControl  {
     arrowDown.alpha = 1
     arrowUp.alpha = 1
     label.alpha = 0
-    panMultiGoals.enabled = false
     firstTap = true
     buttonState = true
     arrowUp.enabled = false
     arrowDown.enabled = false
+    panMultiGoals.enabled = false
     view.layoutIfNeeded()
   }
 
@@ -202,6 +202,8 @@ class Stepper: UIControl  {
     UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: [.AllowUserInteraction , .CurveEaseInOut ], animations: {
 
       if self.firstTap {
+            Stepper.active?.shrink()
+            Stepper.active = self
             self.circleView.transform = CGAffineTransformMakeScale(1.2, 1.2)
             self.upButtonVerticalConstraint.constant = 100
             self.downButtonVerticalConstraint.constant = 100
@@ -222,9 +224,7 @@ class Stepper: UIControl  {
 
         UIView.animateWithDuration(0.6, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
             if !self.buttonState {
-                self.arrowDown.alpha = 1
-                self.arrowUp.alpha = 1
-                self.label.alpha = 1
+                self.arrowsLabelAlpha.forEach { $0.alpha = 1 }
                 self.arrowUp.transform = CGAffineTransformMakeScale(1.3, 1.3)
                 self.arrowDown.transform = CGAffineTransformMakeScale(1.3, 1.3)
           }
@@ -258,20 +258,20 @@ class Stepper: UIControl  {
     UIView.animateWithDuration(0.18, animations: { _ in
       self.view.layoutIfNeeded()
       if self.firstTap {
+        self.firstTap = false
+        self.view.frame.origin.y = -self.offset
         self.arrowUp.alpha = 0
         self.arrowDown.alpha = 0
-        self.view.frame.origin.y = -self.offset
         self.label.alpha = 1
-        self.label.textColor = UIColor(red: 52/255.0, green: 52/255.0, blue: 88/255.0, alpha: 1)
-        self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
-        self.firstTap = false
-
-
+        self.label.textColor = UIColor(red: 52/255.0, green: 52/255.0, blue: 88/255.0, alpha: 1.0)
+        self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1.0)
+        self.upButtonVerticalConstraint.constant = 100
+        self.downButtonVerticalConstraint.constant = 100
       } else {
         self.view.frame.origin.y = -self.offset
+        self.label.textColor = UIColor(red: 52/255.0, green: 52/255.0, blue: 88/255.0, alpha: 1.0)
+        self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1.0)
         self.label.alpha = 1
-        self.label.textColor = UIColor(red: 52/255.0, green: 52/255.0, blue: 88/255.0, alpha: 1)
-        self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
       }
       }) { _ in
 
@@ -279,20 +279,14 @@ class Stepper: UIControl  {
           self.view.frame.origin.y = 0
           self.circleView.filledColor = UIColor(red: 211/255.0, green: 211/255.0, blue: 211/255.0, alpha: 0.3)
           self.label.textColor = UIColor.whiteColor()
-
-
-        })
+      })
     }
   }
-
-
 }
-
 extension Stepper: UIGestureRecognizerDelegate {
-
   func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     let translation = panMultiGoals.translationInView(circleView)
-    if -Int(translation.y) >= 2  || -Int(translation.y) <= -2 {
+    if -Int(translation.y) >= 3  || -Int(translation.y) <= -3 {
       panMultiGoals.enabled = false
       panMultiGoals.enabled = true
       panMultiGoals.setTranslation(CGPointZero, inView: circleView)

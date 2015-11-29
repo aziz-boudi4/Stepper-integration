@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8FAFEB7F1BFFF99E005643C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAFEB7E1BFFF99E005643C4 /* ViewController.swift */; };
+		8FAFEBC51C06EDFD005643C4 /* Stepper.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FAFEBC41C06EDFD005643C4 /* Stepper.xib */; };
 		8FC342BB1B28EE6200F59A0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC342BA1B28EE6200F59A0B /* AppDelegate.swift */; };
 		8FC342C01B28EE6200F59A0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC342BE1B28EE6200F59A0B /* Main.storyboard */; };
 		8FC342C21B28EE6200F59A0B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FC342C11B28EE6200F59A0B /* Images.xcassets */; };
@@ -17,8 +18,6 @@
 		CFFD0E651BFE607800693486 /* Stepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD0E631BFE607800693486 /* Stepper.swift */; };
 		CFFD0E671BFE609900693486 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD0E661BFE609900693486 /* Utils.swift */; };
 		CFFD0E681BFE609900693486 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD0E661BFE609900693486 /* Utils.swift */; };
-		CFFD0E6A1BFE634700693486 /* Stepper.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFFD0E691BFE634700693486 /* Stepper.xib */; };
-		CFFD0E6B1BFE634700693486 /* Stepper.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFFD0E691BFE634700693486 /* Stepper.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		8FAFEB7E1BFFF99E005643C4 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8FAFEBC41C06EDFD005643C4 /* Stepper.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Stepper.xib; sourceTree = "<group>"; };
 		8FC342B51B28EE6200F59A0B /* newStepper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = newStepper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC342B91B28EE6200F59A0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FC342BA1B28EE6200F59A0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,7 +44,6 @@
 		8FC342D01B28EE6200F59A0B /* newStepperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newStepperTests.swift; sourceTree = "<group>"; };
 		CFFD0E631BFE607800693486 /* Stepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stepper.swift; sourceTree = "<group>"; };
 		CFFD0E661BFE609900693486 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		CFFD0E691BFE634700693486 /* Stepper.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Stepper.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +92,7 @@
 				8FC342C31B28EE6200F59A0B /* LaunchScreen.xib */,
 				8FC342B81B28EE6200F59A0B /* Supporting Files */,
 				CFFD0E631BFE607800693486 /* Stepper.swift */,
-				CFFD0E691BFE634700693486 /* Stepper.xib */,
+				8FAFEBC41C06EDFD005643C4 /* Stepper.xib */,
 				CFFD0E661BFE609900693486 /* Utils.swift */,
 			);
 			path = newStepper;
@@ -209,7 +208,7 @@
 				8FC342C01B28EE6200F59A0B /* Main.storyboard in Resources */,
 				8FC342C51B28EE6200F59A0B /* LaunchScreen.xib in Resources */,
 				8FC342C21B28EE6200F59A0B /* Images.xcassets in Resources */,
-				CFFD0E6A1BFE634700693486 /* Stepper.xib in Resources */,
+				8FAFEBC51C06EDFD005643C4 /* Stepper.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,7 +216,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFFD0E6B1BFE634700693486 /* Stepper.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
