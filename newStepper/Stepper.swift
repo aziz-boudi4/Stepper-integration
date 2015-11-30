@@ -3,6 +3,38 @@ import UIKit
 //@IBDesignable
 class Stepper: UIControl  {
 
+  // instant touch 
+
+  private var startPoint: CGPoint?
+  var constraint: NSLayoutConstraint? 
+
+  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    super.touchesBegan(touches, withEvent: event)
+      guard let firstTouch = touches.first else { return }
+      startPoint = firstTouch.locationInView(self)
+
+      UIView.animateWithDuration(0.3) {
+        self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
+
+    }
+  }
+
+
+//  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//    super.touchesEnded(touches, withEvent: event)
+//
+//    guard let _ = startPoint else { return }
+//
+//    UIView.animateWithDuration(0.8) {
+////      self.backgroundColor = UIColor.whiteColor()
+//      //      self.constraint?.constant = 0.0
+//      
+//    }
+//  }
+
+
+
+
   weak static var active: Stepper?
 
   @IBInspectable var min: Int = 0
@@ -91,9 +123,9 @@ class Stepper: UIControl  {
     addGestureRecognizer(panMultiGoals)
     panMultiGoals.delegate = self
 
-    arrowDown.alpha = 1
-    arrowUp.alpha = 1
     label.alpha = 0
+    arrowUp.alpha = 1
+    arrowDown.alpha = 1
     firstTap = true
     buttonState = true
     arrowUp.enabled = false
@@ -197,15 +229,16 @@ class Stepper: UIControl  {
 
   // Toggle animation ( active and inactive mode )
   func handleTap(sender: UITapGestureRecognizer) { // added
+
     self.view.layoutIfNeeded()
     circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
-    UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: [.AllowUserInteraction , .CurveEaseInOut ], animations: {
+    UIView.animateWithDuration(0.8, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: [.AllowUserInteraction , .CurveEaseInOut ], animations: {
 
       if self.firstTap {
             Stepper.active?.shrink()
             Stepper.active = self
             self.circleView.transform = CGAffineTransformMakeScale(1.2, 1.2)
-            self.upButtonVerticalConstraint.constant = 100
+            self.upButtonVerticalConstraint.constant   = 100
             self.downButtonVerticalConstraint.constant = 100
             self.label.alpha = 1
             self.arrowUp.alpha = 1
@@ -286,7 +319,7 @@ class Stepper: UIControl  {
 extension Stepper: UIGestureRecognizerDelegate {
   func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     let translation = panMultiGoals.translationInView(circleView)
-    if -Int(translation.y) >= 3  || -Int(translation.y) <= -3 {
+    if -Int(translation.y) >= 2  || -Int(translation.y) <= -2 {
       panMultiGoals.enabled = false
       panMultiGoals.enabled = true
       panMultiGoals.setTranslation(CGPointZero, inView: circleView)
@@ -300,6 +333,20 @@ extension Stepper: UIGestureRecognizerDelegate {
 
 
 
+//Double check
+
+//
+//func handleOutsideTap(sender: UITapGestureRecognizer) {
+//  UIView.animateWithDuration(0.1, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
+//    if self.firstTap && self.buttonState == true {
+//      self.arrowUp.alpha = 1
+//      self.arrowDown.alpha = 1
+//    } else {
+//      self.shrink()
+//    }
+//
+//    }, completion:nil)
+//}
 
 
 
