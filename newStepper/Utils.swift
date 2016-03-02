@@ -1,6 +1,9 @@
 import Foundation
 import UIKit
 
+
+
+
 typealias Callback = () -> Void
 
 enum Score {
@@ -882,3 +885,79 @@ class RoundedRectLabel: UILabel, RoundedRectComponent {
     return roundedRectComponentIntrinsicContentSize(self) ?? super.intrinsicContentSize()
   }
 }
+extension UIFont {
+
+  func heightOfString (string: String, constrainedToWidth width: CGFloat) -> CGFloat {
+    return string.boundingRectWithSize(CGSize(width: width, height: CGFloat.max),
+      options: NSStringDrawingOptions.UsesLineFragmentOrigin,
+      attributes: [NSFontAttributeName: self],
+      context: nil).size.height
+  }
+}
+
+struct Colors {
+
+  static let facebookBlue = UIColor(
+    red: 53/255.0,
+    green: 79/255.0,
+    blue: 144/255.0,
+    alpha: 1
+  )
+
+  static let twitterBlue = UIColor(
+    red: 0/255.0,
+    green: 171/255.0,
+    blue: 234/255.0,
+    alpha: 1
+  )
+
+  static let blue = UIColor(
+    red: 52/255.0,
+    green: 52/255.0,
+    blue: 88/255.0,
+    alpha: 1
+  )
+
+  static let red = UIColor(
+    red: 255/255.0,
+    green: 51/255.0,
+    blue: 51/255.0,
+    alpha: 1
+  )
+
+  static let green = UIColor(
+    red: 167/255.0,
+    green: 246/255.0,
+    blue: 67/255.0,
+    alpha: 1
+  )
+
+  static let gray = UIColor(
+    red: 170/255.0,
+    green: 170/255.0,
+    blue: 170/255.0,
+    alpha: 1
+  )
+
+  // color for follow btn in ProfileAvatarViewController
+  static let lightblue = UIColor(
+    red:  0/255.0,
+    green: 171/255.0,
+    blue: 234/255.0,
+    alpha: 1
+  )
+
+  static let userCellColors: [UIColor] = [
+    Colors.blue,
+    UIColor(red:0.13, green:0.13, blue:0.2, alpha:1),
+    UIColor(red:0.16, green:0.16, blue:0.26, alpha:1),
+    UIColor(red:0.24, green:0.24, blue:0.39, alpha:1),
+    UIColor(red:0.32, green:0.32, blue:0.51, alpha:1)
+  ]
+}
+
+
+
+
+
+

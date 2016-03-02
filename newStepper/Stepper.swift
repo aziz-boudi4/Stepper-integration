@@ -1,61 +1,90 @@
 import UIKit
+import Foundation
+import DateTools
 
 //@IBDesignable
-class Stepper: UIControl  {
+class Stepper: UIControl {
 
-  // instant touch 
+  // MARK: enums
 
-  private var startPoint: CGPoint?
-  var constraint: NSLayoutConstraint? 
-
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    super.touchesBegan(touches, withEvent: event)
-      guard let firstTouch = touches.first else { return }
-      startPoint = firstTouch.locationInView(self)
-
-      UIView.animateWithDuration(0.3) {
-        self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
-
-    }
+  enum State {
+    case Unactivated
+    case ActivatedSmall
+    case ActivatedLarge
   }
 
+  // MARK: Constants
 
-//  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//    super.touchesEnded(touches, withEvent: event)
-//
-//    guard let _ = startPoint else { return }
-//
-//    UIView.animateWithDuration(0.8) {
-////      self.backgroundColor = UIColor.whiteColor()
-//      //      self.constraint?.constant = 0.0
-//      
-//    }
-//  }
+  private struct Constants {
+    static let unactivatedColor =  UIColor(red: 211/255.0, green: 211/255.0, blue: 211/255.0, alpha: 0.3)
+    static let goalGestureScale: CGFloat = 15
+    static let swipeDelay: Double = 0.2
+  }
 
+  // MARK: Statics
 
-
-
-  weak static var active: Stepper?
+  weak static var active: Stepper? {
+    didSet {
+      if let oldValue = oldValue where oldValue != active {
+        oldValue.stepperState = .Unactivated
+      }
+    }
+  }
 
   @IBInspectable var min: Int = 0
   @IBInspectable var max: Int = 20
 
   // MARK: IBOutlet
-  @IBOutlet var arrowsLabelAlpha: [UIView]!
+
   @IBOutlet var view: UIView!
-  @IBOutlet weak var circleView: CircleView!
+
+  @IBOutlet var views: [UIView]!
   @IBOutlet weak var label: UILabel!
+  @IBOutlet weak var circleView: CircleView!
   @IBOutlet weak var arrowUp: Button!
   @IBOutlet weak var arrowDown: Button!
   @IBOutlet weak var upButtonVerticalConstraint: NSLayoutConstraint!
   @IBOutlet weak var downButtonVerticalConstraint: NSLayoutConstraint!
 
+  var stepperState: State = .Unactivated {
+    didSet {
+      let height = label.font.heightOfString("0", constrainedToWidth: frame.width)
+      print(height)
+      upButtonVerticalConstraint.constant = 6 + height / 2
+      downButtonVerticalConstraint.constant = 6 + height / 2
 
-  var buttonState = true  // enlarge(false) && shrink(true)
-  var firstTap = true
-  var increment: Int = 1
-  var offset: CGFloat = 10
-  var panMultiGoals: UIPanGestureRecognizer!
+      switch stepperState {
+      case .Unactivated:
+        circleView.filledColor = Stepper.Constants.unactivatedColor
+        circleView.transform = CGAffineTransformMakeScale(1, 1)
+        arrowUp.alpha = 0
+        arrowDown.alpha = 0
+      case .ActivatedSmall:
+        Stepper.active = self
+        circleView.filledColor = Colors.green
+        circleView.transform = CGAffineTransformMakeScale(1, 1)
+        arrowUp.alpha = 0
+        arrowDown.alpha = 0
+      case .ActivatedLarge:
+        Stepper.active = self
+        circleView.filledColor = Colors.green
+        circleView.transform = CGAffineTransformMakeScale(1.2, 1.2)
+        arrowDown.enabled = true
+        arrowUp.enabled = true
+        views.forEach { $0.alpha = 1 }
+      }
+    }
+  }
+
+  var panStartTime: NSDate?
+
+  lazy var tapRecognizer: UITapGestureRecognizer = {
+    return UITapGestureRecognizer(target: self, action: "handleTap:")
+  }()
+
+  lazy var panRecognizer: UIPanGestureRecognizer = {
+    return UIPanGestureRecognizer(target: self, action: "handlePan:")
+  }()
 
   // MARK: properties
 
@@ -81,19 +110,6 @@ class Stepper: UIControl  {
 
   // MARK: initializers
 
-//  override func didMoveToSuperview() {
-//    super.didMoveToSuperview()
-//    var superViews = [UIView]()
-//      func getSuperView(view: UIView) -> UIView {
-//        guard let superview = view.superview else { return view }
-//        return getSuperView(superview)
-//      }
-//    let view = getSuperView(self)
-//    let tappedOutside = UITapGestureRecognizer(target: self, action: "handleOutsideTap:")
-//    view.addGestureRecognizer(tappedOutside)
-//  }
-
-
   override init(frame: CGRect) {
     super.init(frame: frame)
     loadNibView(nibName)
@@ -107,31 +123,12 @@ class Stepper: UIControl  {
   }
 
   private func commonInit() {
-    let swipeUp = UISwipeGestureRecognizer(target: self, action: "handleSwipes:")
-    let swipeDown = UISwipeGestureRecognizer(target: self, action: "handleSwipes:")
-
-    swipeUp.direction = .Up
-    swipeDown.direction = .Down
-
-    addGestureRecognizer(swipeUp)
-    addGestureRecognizer(swipeDown)
-
-    let tapped = UITapGestureRecognizer(target: self, action: "handleTap:")
-    addGestureRecognizer(tapped)
-
-    panMultiGoals = UIPanGestureRecognizer(target: self, action: "handlePan:")
-    addGestureRecognizer(panMultiGoals)
-    panMultiGoals.delegate = self
+    addGestureRecognizer(panRecognizer)
+    addGestureRecognizer(tapRecognizer)
 
     label.alpha = 0
-    arrowUp.alpha = 1
-    arrowDown.alpha = 1
-    firstTap = true
-    buttonState = true
     arrowUp.enabled = false
     arrowDown.enabled = false
-    panMultiGoals.enabled = false
-    view.layoutIfNeeded()
   }
 
   // MARK: IBActions
@@ -144,210 +141,79 @@ class Stepper: UIControl  {
     inc(-1)
   }
 
+  // MARK: Gesture Recognizer Handlers
 
-//  @IBAction func setupOutsideTapGesture(sender: UITapGestureRecognizer) {
-//    UIView.animateWithDuration(0.1, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
-//      if self.firstTap && self.buttonState == true {
-//        self.arrowUp.alpha = 1
-//        self.arrowDown.alpha = 1
-//      } else {
-//        self.shrink()
-//      }
-//
-//      }, completion:nil)
-//  }
+  func handleTap(sender: UITapGestureRecognizer) {
+    UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: [.AllowUserInteraction , .CurveEaseInOut ], animations: {
 
-//  func handleOutsideTap(sender: UITapGestureRecognizer) {
-//    UIView.animateWithDuration(0.1, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
-//      if self.firstTap && self.buttonState == true {
-//        self.arrowUp.alpha = 1
-//        self.arrowDown.alpha = 1
-//      } else {
-//        self.shrink()
-//      }
-//
-//      }, completion:nil)
-//  }
-
-
-  // speed of the pan gesture
-  private struct Constants {
-    static let GoalGestureScale :CGFloat = 15
+      switch self.stepperState {
+      case .Unactivated: self.stepperState = .ActivatedLarge
+      default: self.stepperState = .Unactivated
+      }
+      self.view.layoutIfNeeded()
+      }, completion:nil)
   }
 
   func handlePan(sender: UIPanGestureRecognizer) {
-    switch sender.state {
-    case .Ended: fallthrough
-    case .Changed:
-      self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
-      let translation = sender.translationInView(circleView)
-      let goalChange = -Int(translation.y / Constants.GoalGestureScale)
+    let ty = sender.translationInView(circleView).y
 
-      if goalChange != 0  {
-        score = score + goalChange
+    switch sender.state  {
+    case .Began :
+      initPan(ty)
+    case .Changed:
+      initPan(ty)
+      guard let panStartTime = panStartTime else { return }
+
+      if NSDate().secondsFrom(panStartTime) > Stepper.Constants.swipeDelay {
+
+        let delta = -Int(ty / Constants.goalGestureScale)
+        if delta != 0 {
+          inc(delta)
+          sender.setTranslation(CGPointZero, inView: circleView)
+        }
+      } else {
         sender.setTranslation(CGPointZero, inView: circleView)
       }
-    default: break
+
+    case .Ended:
+      resetTranslation()
+      panStartTime = nil
+      default: break
     }
   }
 
-
-
-
   // MARK: private methods
+
+  private func initPan(ty: CGFloat) {
+    guard panStartTime == nil && ty != 0 else { return }
+    panStartTime = NSDate()
+    incAndTranslateView(ty > 0 ? -1: 1)
+  }
 
   private func inc(n: Int) {
     score = score + n
     sendActionsForControlEvents(.ValueChanged)
   }
 
-  func enlarge() {
-    Stepper.active?.shrink()
-    Stepper.active = self
+  private func incAndTranslateView(val: Int) {
+    let offset: CGFloat = val == 1 ? -10.0 : 10.0
 
-
-    circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1.0)
-    circleView.transform = CGAffineTransformMakeScale(1.2, 1.2)
-    arrowUp.transform = CGAffineTransformMakeScale(1.2, 1.2)
-    arrowDown.transform = CGAffineTransformMakeScale(1.2, 1.2)
-    arrowUp.alpha = 1
-    arrowDown.alpha = 1
-    buttonState = false
-    panMultiGoals.enabled = true
-    arrowDown.enabled = true
-    arrowUp.enabled = true
-  }
-
-  func shrink() {
-    circleView.filledColor = UIColor(red: 211/255.0, green: 211/255.0, blue: 211/255.0, alpha: 0.3)
-    circleView.transform = CGAffineTransformMakeScale(1, 1)
-    arrowUp.alpha = 0
-    arrowDown.alpha = 0
-    panMultiGoals.enabled = false
-    buttonState = true
-  }
-
-  // Toggle animation ( active and inactive mode )
-  func handleTap(sender: UITapGestureRecognizer) { // added
-
-    self.view.layoutIfNeeded()
-    circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1)
-    UIView.animateWithDuration(0.8, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: [.AllowUserInteraction , .CurveEaseInOut ], animations: {
-
-      if self.firstTap {
-            Stepper.active?.shrink()
-            Stepper.active = self
-            self.circleView.transform = CGAffineTransformMakeScale(1.2, 1.2)
-            self.upButtonVerticalConstraint.constant   = 100
-            self.downButtonVerticalConstraint.constant = 100
-            self.label.alpha = 1
-            self.arrowUp.alpha = 1
-            self.arrowDown.alpha = 1
-            self.firstTap = false
-            self.buttonState = false
-            self.panMultiGoals.enabled = true
-
-      } else {
-            self.buttonState ? self.enlarge() : self.shrink()
-      }
-
-            self.view.layoutIfNeeded()
-
-      }, completion:nil)
-
-        UIView.animateWithDuration(0.6, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
-            if !self.buttonState {
-                self.arrowsLabelAlpha.forEach { $0.alpha = 1 }
-                self.arrowUp.transform = CGAffineTransformMakeScale(1.3, 1.3)
-                self.arrowDown.transform = CGAffineTransformMakeScale(1.3, 1.3)
-          }
-      }, completion:nil)
-    
-  }
-
-
-  func handleSwipes(sender:UISwipeGestureRecognizer) {
-    if let active = Stepper.active where active !== self {
-      active.shrink()
-      Stepper.active = nil
-    }
-
-    self.view.layoutIfNeeded()
-
-    // up or down
-    if sender.direction == .Up {
-      increment = 1
-      offset = 10
-
-    } else if sender.direction == .Down {
-      increment = -1
-      offset = -10
-
-    }
-
-    // animate stuff with constraints
-    inc(increment)
-
+    inc(val)
     UIView.animateWithDuration(0.18, animations: { _ in
+      self.view.frame.origin.y = offset
+      self.label.alpha = 1
+      self.label.textColor = Colors.blue
+      if self.stepperState == .Unactivated { self.stepperState = .ActivatedSmall }
       self.view.layoutIfNeeded()
-      if self.firstTap {
-        self.firstTap = false
-        self.view.frame.origin.y = -self.offset
-        self.arrowUp.alpha = 0
-        self.arrowDown.alpha = 0
-        self.label.alpha = 1
-        self.label.textColor = UIColor(red: 52/255.0, green: 52/255.0, blue: 88/255.0, alpha: 1.0)
-        self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1.0)
-        self.upButtonVerticalConstraint.constant = 100
-        self.downButtonVerticalConstraint.constant = 100
-      } else {
-        self.view.frame.origin.y = -self.offset
-        self.label.textColor = UIColor(red: 52/255.0, green: 52/255.0, blue: 88/255.0, alpha: 1.0)
-        self.circleView.filledColor = UIColor(red: 167/255.0, green: 246/255.0, blue: 67/255.0, alpha: 1.0)
-        self.label.alpha = 1
-      }
-      }) { _ in
+    })
+  }
 
-        UIView.animateWithDuration(0.18, animations: { _ in
-          self.view.frame.origin.y = 0
-          self.circleView.filledColor = UIColor(red: 211/255.0, green: 211/255.0, blue: 211/255.0, alpha: 0.3)
-          self.label.textColor = UIColor.whiteColor()
-      })
-    }
+  private func resetTranslation() {
+    UIView.animateWithDuration(0.18, animations: { _ in
+      self.view.frame.origin.y = 0
+      self.label.textColor = UIColor.whiteColor()
+      if self.stepperState == .ActivatedSmall { self.stepperState = .Unactivated }
+      self.view.layoutIfNeeded()
+    })
   }
 }
-extension Stepper: UIGestureRecognizerDelegate {
-  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    let translation = panMultiGoals.translationInView(circleView)
-    if -Int(translation.y) >= 2  || -Int(translation.y) <= -2 {
-      panMultiGoals.enabled = false
-      panMultiGoals.enabled = true
-      panMultiGoals.setTranslation(CGPointZero, inView: circleView)
-      return true
-    } else  {
-      panMultiGoals.enabled = true
-      return false
-    }
-  }
-}
-
-
-
-//Double check
-
-//
-//func handleOutsideTap(sender: UITapGestureRecognizer) {
-//  UIView.animateWithDuration(0.1, delay: 0, options: [  .AllowUserInteraction , .CurveEaseInOut ] , animations: {
-//    if self.firstTap && self.buttonState == true {
-//      self.arrowUp.alpha = 1
-//      self.arrowDown.alpha = 1
-//    } else {
-//      self.shrink()
-//    }
-//
-//    }, completion:nil)
-//}
-
-
-
-
